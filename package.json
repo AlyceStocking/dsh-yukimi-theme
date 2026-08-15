@@ -1,0 +1,18 @@
+{
+  "name": "@local/dsh-yukimi-theme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "佐城雪美主题：深蓝配色、卡面背景、桌面宠物纸片小人、Mobamas 轮播、签名铭牌。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web"
+    }
+  }
+}
