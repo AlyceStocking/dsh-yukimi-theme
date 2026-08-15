@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dsh-yukimi-theme · 佐城雪美主题</title>
+<style>
+  :root {
+    --brand: #171C8F;
+    --brand-2: #2582C8;
+    --brand-3: #4D6BFE;
+    --ink: #1b2440;
+    --muted: #5c6b8e;
+    --bg: #eef2fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: var(--ink);
+    background:
+      linear-gradient(rgba(238,242,250,0.86), rgba(238,242,250,0.86)),
+      url("https://patchwiki.biligame.com/images/imascg/4/40/9qylnl62pskrgo7hqfrrqi1pidi5qan.png") no-repeat fixed center / cover;
+  }
+  header {
+    background: linear-gradient(135deg, #171C8F 0%, #2b2fa8 60%, #2582C8 100%);
+    color: #fff;
+    padding: 64px 24px;
+    text-align: center;
+  }
+  header h1 { margin: 0 0 12px; font-size: 40px; letter-spacing: .04em; }
+  header p { margin: 0; opacity: .9; font-size: 16px; line-height: 1.7; }
+  .badge {
+    display: inline-block; margin-top: 20px; padding: 6px 16px;
+    border: 1px solid rgba(255,255,255,.5); border-radius: 999px; font-size: 13px;
+  }
+  main { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+  h2 { color: var(--brand); margin: 48px 0 16px; font-size: 24px; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 16px; }
+  .swatch { width: 160px; }
+  .swatch .chip { height: 72px; border-radius: 12px; box-shadow: 0 2px 8px rgba(20,24,60,.15); }
+  .swatch .name { font-size: 13px; margin-top: 8px; color: var(--muted); font-family: ui-monospace, monospace; }
+  ul.features { line-height: 2; font-size: 15px; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .gallery img { width: 100%; aspect-ratio: 1280/824; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 16px rgba(20,24,60,.2); }
+  .petits { display: flex; flex-wrap: wrap; gap: 16px; }
+  .petits img { width: 120px; height: 120px; object-fit: contain; background: rgba(255,255,255,.6); border-radius: 16px; padding: 8px; box-shadow: 0 4px 16px rgba(20,24,60,.15); }
+  pre {
+    background: #171C8F; color: #eef2ff; border-radius: 12px; padding: 18px 20px;
+    overflow-x: auto; font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 13px; line-height: 1.6;
+  }
+  code { background: rgba(23,28,143,.08); padding: 2px 6px; border-radius: 6px; font-size: .92em; }
+  a { color: var(--brand-3); }
+  footer { text-align: center; color: var(--muted); padding: 32px 24px; font-size: 13px; line-height: 1.8; }
+</style>
+</head>
+<body>
+<header>
+  <h1>佐城雪美 · dsh-yukimi-theme</h1>
+  <p>给 DeepSeek Harness Web 界面用的《偶像大师 灰姑娘女孩》佐城雪美主题<br>深蓝配色 · 卡面背景 · 磨砂侧栏 · 桌面宠物纸片小人</p>
+  <span class="badge">MIT License · 仅供个人学习与同好交流</span>
+</header>
+
+<main>
+  <h2>主题色</h2>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#171C8F"></div><div class="name">#171C8F · 印象色</div></div>
+    <div class="swatch"><div class="chip" style="background:#2582C8"></div><div class="name">#2582C8 · 辅助</div></div>
+    <div class="swatch"><div class="chip" style="background:#4D6BFE"></div><div class="name">#4D6BFE · 辅助</div></div>
+    <div class="swatch"><div class="chip" style="background:#4fe3e1"></div><div class="name">#4fe3e1 · 暗色高亮</div></div>
+  </div>
+
+  <h2>功能</h2>
+  <ul class="features">
+    <li>深蓝主题色（亮 / 暗自适应）</li>
+    <li>角色卡面铺满背景，半透明透出</li>
+    <li>淡蓝磨砂玻璃侧栏</li>
+    <li>桌面宠物纸片小人：单击翻转 · 双击换衣 · 长按弹面板 · 可拖动 · 随机自动互动</li>
+    <li>Mobamas 卡片轮播（可拖动、点击切换）</li>
+    <li>右下角签名铭牌</li>
+    <li>助手文字描边 + 用户气泡半透明，提升可读性</li>
+  </ul>
+
+  <h2>卡面画廊</h2>
+  <div class="gallery">
+    <img src="https://patchwiki.biligame.com/images/imascg/4/40/9qylnl62pskrgo7hqfrrqi1pidi5qan.png" alt="SSR-5+">
+    <img src="https://patchwiki.biligame.com/images/imascg/f/f6/3whyomkrysdjw7ajcglkui65ncllo94.png" alt="SSR-5">
+    <img src="https://patchwiki.biligame.com/images/imascg/e/e7/hv19pr2cvglfywtza4xgqxqu6kygudx.png" alt="SR-7+">
+    <img src="https://patchwiki.biligame.com/images/imascg/3/34/el5mgvr7bsxol4ke9257k2wpzsyej30.png" alt="SR-6+">
+  </div>
+
+  <h2>纸片小人（Petit）</h2>
+  <div class="petits">
+    <img src="https://patchwiki.biligame.com/images/imascg/1/15/5z85ueg7jpc01o09nmv4svqwtklgr12.png" alt="Petit-8-1">
+    <img src="https://patchwiki.biligame.com/images/imascg/1/12/mcnppr62mp9mg1pcbnpku2nt1v3ivf0.png" alt="Petit-8-2">
+    <img src="https://patchwiki.biligame.com/images/imascg/3/36/p7gw8g13162ipbvd5p9sn6vmsxr2cyr.png" alt="Petit-8-3">
+    <img src="https://patchwiki.biligame.com/images/imascg/a/af/i99ouf8oemw2ohenniv391ptclb38yg.png" alt="Petit-8-4">
+  </div>
+
+  <h2>安装</h2>
+  <p>1. 把 <code>@local/dsh-yukimi-theme</code> 包放到 <code>$DSH_HOME/profiles/node_modules/@local/</code> 下。</p>
+  <p>2. 编辑 <code>$DSH_HOME/profiles/web/cordis.patch.yml</code>：</p>
+  <pre>- insert:
+    - id: yukimi-theme
+      name: '@local/dsh-yukimi-theme'</pre>
+  <p>3. 重启：<code>dsh web</code>。</p>
+  <p>详见 <a href="https://github.com/AlyceStocking/dsh-yukimi-theme">GitHub README</a>。</p>
+</main>
+
+<footer>
+  <div>角色与美术素材版权归 Bandai Namco Entertainment / Cygames（《偶像大师 灰姑娘女孩》）所有。</div>
+  <div>本主题仅在线引用 <a href="https://wiki.biligame.com/imascg/佐城雪美">imascg wiki</a> 图片 URL，不打包分发任何官方素材。</div>
+  <div>代码以 MIT License 开源 · © 2026 AlyceStocking</div>
+</footer>
+</body>
+</html>
