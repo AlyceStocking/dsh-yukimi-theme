@@ -14,3 +14,12 @@
 - https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/web-styling.md
 - https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/develop/basic/publish.md
 - 兼容性以本机已安装包的类型声明为准；当前 master 的 rightbar 插槽尚不存在于本机版本。
+
+## 阶段 2：装饰避让（2026-09-10）
+- 三个自由浮动挂件合并为独立 248px 装饰栏，使用 shell.overlay 和 sidebar.footer.action 两个 additive 插槽。
+- 通过稳定的 #root 挂载容器预留宽度；无宿主编译类名依赖；不替换原生对话或 details 插槽。
+- 添加一键收起/显示，外观面板可直接展开；小人换装、翻转和背景选择保留，取消自由拖动。
+- 实测 950px 窗口：rootRight = dockLeft = 702.4px，互不覆盖；隐藏后主区恢复 950.4px；无页面横向溢出。
+- 实测小人互动、换装、外观展开及工具轨迹详情；参数/结果/计时区域未被装饰覆盖。
+- node --check、3/3 单元测试、git diff --check 通过。
+- 窄窗口自动收起留到阶段 3。
