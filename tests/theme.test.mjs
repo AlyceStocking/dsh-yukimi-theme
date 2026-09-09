@@ -3,14 +3,16 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-function loadTheme() {
+function loadTheme(wide = true) {
   let plugin, tokens;
+  const mediaListeners = new Set();
+  const media = { matches: wide, addEventListener: (_, fn) => mediaListeners.add(fn), removeEventListener: (_, fn) => mediaListeners.delete(fn) };
   const disposers = [];
   const styles = new Set();
   const registrations = [];
   const slots = { inject: (_, fn) => fn(), register: (spec, component) => registrations.push({ spec, component }) };
   vm.runInNewContext(readFileSync(new URL('../lib/client.js', import.meta.url), 'utf8'), {
-    window: { __ModuleLoader__: { load: entry => { plugin = entry.factory(() => ({})); } } },
+    window: { matchMedia: () => media, __ModuleLoader__: { load: entry => { plugin = entry.factory(() => ({})); } } },
     document: {
       createElement: () => { const tag = { dataset: {}, remove: () => styles.delete(tag) }; return tag; },
       head: { appendChild: tag => styles.add(tag) },
@@ -20,7 +22,7 @@ function loadTheme() {
     get: key => key === 'theme' ? { overrideTokens: (_, value) => { tokens = value; return () => { tokens = undefined; }; } } : slots,
     effect: fn => disposers.push(fn()),
   });
-  return { tokens, styles, registrations, dispose: () => disposers.reverse().forEach(fn => fn()), currentTokens: () => tokens };
+  return { tokens, styles, registrations, mediaListeners, resize: wide => { media.matches = wide; mediaListeners.forEach(fn => fn()); }, dispose: () => disposers.reverse().forEach(fn => fn()), currentTokens: () => tokens };
 }
 
 const rgb = hex => hex.slice(1).match(/../g).map(v => parseInt(v, 16));
@@ -70,4 +72,24 @@ test('decoration visibility is shared across the official additive slots', () =>
   toggle.toggleDecorations();
   assert.equal(source.getSnapshot().visible, true);
   assert.equal(changes, 1);
+});
+
+test('compact screens auto-hide decorations, restore desktop choice and clean up resize subscriptions', () => {
+  const theme = loadTheme(false);
+  const input = theme.registrations[0].spec.inject();
+  const snapshot = () => input.hooks.preferences.getSnapshot();
+  assert.equal(snapshot().compact, true);
+  assert.equal(snapshot().visible, false);
+  input.toggleDecorations();
+  assert.equal(snapshot().visible, true);
+  theme.resize(true);
+  assert.equal(snapshot().compact, false);
+  assert.equal(snapshot().visible, true);
+  input.toggleDecorations(); // explicitly hide on desktop
+  theme.resize(false);
+  assert.equal(snapshot().visible, false);
+  theme.resize(true);
+  assert.equal(snapshot().visible, false);
+  theme.dispose();
+  assert.equal(theme.mediaListeners.size, 0);
 });

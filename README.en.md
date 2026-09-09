@@ -8,17 +8,16 @@ Restyles the page — colors, background, sidebar, and a few interactive widgets
 
 ## Features
 
-- **Deep-blue palette** built on Yukimi's image color `#171C8F` (light / dark aware).
-- **Card-art background**: her SSR artwork fills the page, softly visible through translucent layers.
-- **Frosted-glass sidebar**: pale-blue translucent + backdrop blur.
-- **Desktop-pet paper doll** (draggable):
-  - single-click → flip (4-frame cycle) + dialogue bubble
-  - double-click → half-turn spin into the next outfit
-  - long-press → toggle the panel (choose doll / switch background card)
-  - randomly auto-triggers a "click" while the page is active
-- **Mobamas card rail**: auto-cycling card gallery, click to advance, draggable.
-- **Signature plate** in the bottom-right corner.
-- **Readability**: text stroke on assistant messages + translucent user bubbles.
+- **Deep-blue palette** based on Yukimi's image color `#171C8F`, with light/dark/system support.
+- **Readable surfaces**: subdued background art, high-contrast text and code surfaces, without text outlines.
+- **Dedicated decoration rail**: cards, doll and signature stay in a reserved 248px column outside conversation, composer and tool details.
+- **Responsive display**: the rail appears at 1280×720 or larger. Smaller windows hide it automatically; the sidebar's “雪” button opens a scrollable decoration dialog with Escape-to-close.
+- **One-click visibility**: show/hide the entire rail from the sidebar footer. The desktop choice survives viewport changes within the current page.
+- **Doll interactions**: click to flip and show a line; use the visible button to cycle outfits. Keyboard controls and reduced-motion styling are supported.
+- **Mobamas cards**: automatic carousel and click-to-advance; the timer stops while decorations are hidden.
+- **Appearance controls**: expand the visible settings section to choose a background or hide individual decorations.
+
+Free dragging has been removed to prevent overlap; visible controls replace the old long-press and double-click actions. Decoration preferences are page-local and reset on reload.
 
 ## Install
 
@@ -51,6 +50,10 @@ Restyles the page — colors, background, sidebar, and a few interactive widgets
    or `dsh --profile web`.
 
 > `DSH_HOME` defaults to `C:\Users\<you>\.dsh` on Windows.
+
+## Development and validation
+
+Edit `lib/client.js` directly; no build or test dependencies are required. Run `npm run check` and `npm test`. Sync the modified client to the installed copy before reloading DSH; restart the server if the old bundle remains cached. See [stage validation](docs/validation.md) for browser checks and official references.
 
 ## License & credits
 
