@@ -32,7 +32,7 @@ const contrast = (a,b) => (Math.max(luminance(a),luminance(b)) + .05) / (Math.mi
 test('reading surfaces keep primary and secondary text above 4.5:1 over any background image', () => {
   const { tokens } = loadTheme();
   for (const mode of ['light', 'dark']) {
-    for (const token of ['--dsw-alias-bg-base', '--dsw-specific-sidebar-fill', '--dsw-specific-bubble', '--dsw-alias-markdown-code-block']) {
+    for (const token of ['--yukimi-reading-surface', '--dsw-specific-sidebar-fill', '--dsw-specific-bubble', '--dsw-alias-markdown-code-block']) {
       const value = tokens[token][mode];
       for (const image of [0, 255]) {
         const parts = value.startsWith('#') ? [...rgb(value), 1] : value.match(/[\d.]+/g).map(Number);
@@ -92,4 +92,14 @@ test('compact screens auto-hide decorations, restore desktop choice and clean up
   assert.equal(snapshot().visible, false);
   theme.dispose();
   assert.equal(theme.mediaListeners.size, 0);
+});
+
+
+test('page tint leaves the background art visible while content has its own reading surface', () => {
+  const { tokens } = loadTheme();
+  for (const mode of ['light','dark']) {
+    const alpha = Number(tokens['--dsw-alias-bg-base'][mode].match(/[\d.]+/g)[3]);
+    assert.ok(alpha <= 0.15);
+    assert.ok(tokens['--yukimi-reading-surface'][mode]);
+  }
 });
