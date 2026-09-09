@@ -8,16 +8,15 @@ Restyles the page — colors, background, sidebar, and a few interactive widgets
 
 ## Features
 
-- **Deep-blue palette** based on Yukimi's image color `#171C8F`, with light/dark/system support.
-- **Readable surfaces**: subdued background art, high-contrast text and code surfaces, without text outlines.
-- **Dedicated decoration rail**: cards, doll and signature stay in a reserved 248px column outside conversation, composer and tool details.
-- **Responsive display**: the rail appears at 1280×720 or larger. Smaller windows hide it automatically; the sidebar's “雪” button opens a scrollable decoration dialog with Escape-to-close.
-- **One-click visibility**: show/hide the entire rail from the sidebar footer. The desktop choice survives viewport changes within the current page.
-- **Doll interactions**: click to flip and show a line; use the visible button to cycle outfits. Keyboard controls and reduced-motion styling are supported.
-- **Mobamas cards**: automatic carousel and click-to-advance; the timer stops while decorations are hidden.
-- **Appearance controls**: expand the visible settings section to choose a background or hide individual decorations.
+- **Visible background art** with translucent reading surfaces limited to messages and tool content; supports light and dark palettes.
+- **Always-visible floating doll**: drag, click to flip with dialogue, double-click to change outfits, and long-press to choose a doll or background.
+- **Keyboard interaction**: Enter/Space interacts, the context-menu key opens settings, and Escape closes settings.
+- **Floating card and signature**: the card remains draggable, automatically cycles, and advances on click.
+- **Responsive extras**: below 1100px wide or 640px tall, only the Mobamas card and signature hide. The doll scales down but stays mounted and visible. Extras return with their previous display preferences when space permits.
+- **Full conversation width**: no decoration sidebar, reserved column or decoration gallery dialog.
+- **Viewport bounds**: doll dragging/resizing and the settings panel stay within the viewport.
 
-Free dragging has been removed to prevent overlap; visible controls replace the old long-press and double-click actions. Decoration preferences are page-local and reset on reload.
+The threshold is defined by matching client/CSS media queries. Preferences are page-local and reset on reload.
 
 ## Install
 

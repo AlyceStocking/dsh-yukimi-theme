@@ -12,7 +12,7 @@ function loadTheme(wide = true) {
   const registrations = [];
   const slots = { inject: (_, fn) => fn(), register: (spec, component) => registrations.push({ spec, component }) };
   vm.runInNewContext(readFileSync(new URL('../lib/client.js', import.meta.url), 'utf8'), {
-    window: { matchMedia: () => media, __ModuleLoader__: { load: entry => { plugin = entry.factory(() => ({})); } } },
+    window: { matchMedia: () => media, __ModuleLoader__: { load: entry => { plugin = entry.factory(() => ({ createElement: (type, props, ...children) => ({ type, props, children }), Fragment: "fragment" })); } } },
     document: {
       createElement: () => { const tag = { dataset: {}, remove: () => styles.delete(tag) }; return tag; },
       head: { appendChild: tag => styles.add(tag) },
@@ -53,48 +53,6 @@ test('disposing plugin removes its styles and token overrides', () => {
   assert.equal(theme.currentTokens(), undefined);
 });
 
-test('decoration visibility is shared across the official additive slots', () => {
-  const { registrations } = loadTheme();
-  assert.deepEqual(registrations.map(r => r.spec.name).sort(), ['shell.overlay', 'sidebar.footer.action']);
-  const dock = registrations.find(r => r.spec.name === 'shell.overlay').spec.inject();
-  const toggle = registrations.find(r => r.spec.name === 'sidebar.footer.action').spec.inject();
-  assert.equal(dock.hooks.preferences, toggle.hooks.preferences);
-  const source = dock.hooks.preferences;
-  const initial = source.getSnapshot();
-  assert.equal(initial, source.getSnapshot());
-  let changes = 0;
-  const unsubscribe = source.subscribe(() => changes++);
-  toggle.toggleDecorations();
-  assert.equal(source.getSnapshot().visible, false);
-  assert.notEqual(source.getSnapshot(), initial);
-  assert.equal(changes, 1);
-  unsubscribe();
-  toggle.toggleDecorations();
-  assert.equal(source.getSnapshot().visible, true);
-  assert.equal(changes, 1);
-});
-
-test('compact screens auto-hide decorations, restore desktop choice and clean up resize subscriptions', () => {
-  const theme = loadTheme(false);
-  const input = theme.registrations[0].spec.inject();
-  const snapshot = () => input.hooks.preferences.getSnapshot();
-  assert.equal(snapshot().compact, true);
-  assert.equal(snapshot().visible, false);
-  input.toggleDecorations();
-  assert.equal(snapshot().visible, true);
-  theme.resize(true);
-  assert.equal(snapshot().compact, false);
-  assert.equal(snapshot().visible, true);
-  input.toggleDecorations(); // explicitly hide on desktop
-  theme.resize(false);
-  assert.equal(snapshot().visible, false);
-  theme.resize(true);
-  assert.equal(snapshot().visible, false);
-  theme.dispose();
-  assert.equal(theme.mediaListeners.size, 0);
-});
-
-
 test('page tint leaves the background art visible while content has its own reading surface', () => {
   const { tokens } = loadTheme();
   for (const mode of ['light','dark']) {
@@ -102,4 +60,28 @@ test('page tint leaves the background art visible while content has its own read
     assert.ok(alpha <= 0.15);
     assert.ok(tokens['--yukimi-reading-surface'][mode]);
   }
+});
+
+
+test('only card and signature hide on compact screens; the floating pet keeps its identity', () => {
+  const theme=loadTheme(true);
+  assert.deepEqual(theme.registrations.map(r=>r.spec.name), ['shell.overlay']);
+  const {spec,component}=theme.registrations[0];
+  const input=spec.inject();
+  const render=()=>component({usePreferences: selector=>selector(input.hooks.preferences.getSnapshot()), update:input.update});
+  const wide=render();
+  assert.equal(wide.children[0].props.show,true);
+  assert.equal(wide.children[2].props.show,true);
+  theme.resize(false);
+  const compact=render();
+  assert.equal(compact.children[0].props.show,false);
+  assert.equal(compact.children[2].props.show,false);
+  assert.equal(compact.children[1].type,wide.children[1].type);
+  assert.equal(compact.children[1].props.hidden,undefined);
+  input.update({showSign:false});
+  theme.resize(true);
+  assert.equal(render().children[0].props.show,false);
+  assert.equal(render().children[2].props.show,true);
+  theme.dispose();
+  assert.equal(theme.mediaListeners.size,0);
 });
