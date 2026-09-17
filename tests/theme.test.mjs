@@ -69,6 +69,8 @@ test('only card and signature hide on compact screens; the floating pet keeps it
   const {spec,component}=theme.registrations[0];
   const input=spec.inject();
   const render=()=>component({usePreferences: selector=>selector(input.hooks.preferences.getSnapshot()), update:input.update});
+  assert.equal(render().children[2].props.show,false);
+  input.update({showMobamas:true});
   const wide=render();
   assert.equal(wide.children[0].props.show,true);
   assert.equal(wide.children[2].props.show,true);
