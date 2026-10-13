@@ -1,7 +1,6 @@
 {
   "name": "dsh-yukimi-theme",
-  "version": "1.2.0-desktop.3",
-  "private": true,
+  "version": "1.2.0",
   "description": "佐城雪美主题：深蓝配色、卡面背景、桌面宠物纸片小人、Mobamas 轮播、签名铭牌。",
   "type": "module",
   "main": "lib/index.js",
@@ -39,5 +38,23 @@
   "devDependencies": {
     "@electron/packager": "20.3.0",
     "electron": "44.5.1"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlyceStocking/dsh-yukimi-theme.git"
+  },
+  "homepage": "https://github.com/AlyceStocking/dsh-yukimi-theme#readme",
+  "bugs": {
+    "url": "https://github.com/AlyceStocking/dsh-yukimi-theme/issues"
+  },
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "dsh-yukimi-theme"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

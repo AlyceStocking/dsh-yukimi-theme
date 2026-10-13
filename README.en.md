@@ -2,7 +2,7 @@
 
 A [Sajo Yukimi](https://wiki.biligame.com/imascg/%E4%BD%90%E5%9F%8E%E9%9B%AA%E7%BE%8E) (佐城雪美) theme for the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (`dsh`) web UI.
 
-The `desktop` branch adds a Windows companion in a transparent, frameless, always-on-top window. It monitors all live root sessions, flips once for each new notice, and shows original preset dialogue without sound. Questions and approvals remain until settled; turn-ending notices are queued and shown once. Clicking a bubble opens its session in Harness. The in-page pet hides only after the companion is ready; the background, signature and card remain available.
+Version **1.2.0** includes a Windows companion in a transparent, frameless, always-on-top window. It monitors all live root sessions, flips once for each new notice, and shows original preset dialogue without sound. Questions and approvals remain until settled; turn-ending notices are queued and shown once. Clicking a bubble opens its session in Harness. The in-page pet hides only after the companion is ready; the background, signature and card remain available.
 
 Build with `npm install`, `npm run build:client`, `npm run desktop:package`; run `npm run check` and `npm test`, then disable the plugin and run `npm run desktop:install`. This creates a complete `.tgz` with the Electron runtime, stores an immutable content-addressed archive under `$DSH_HOME/yukimi-desktop/packages/`, and uses the Desktop application's own CLI to update the profile dependency. Keep this archive: dependency reinstalls can then restore the complete desktop package instead of the old GitHub default branch. Use `npm run desktop:install -- --bundle-only` to build the archive without installing it. Harness program files are not modified.
 
@@ -25,6 +25,16 @@ Historical messages and code blocks use translucent reading surfaces. The opaque
 Restyles the page — colors, background, sidebar, and a few interactive widgets — around Yukimi Sajo from *THE iDOLM@STER Cinderella Girls*.
 
 [中文说明](README.md) · [Live preview](https://alycestocking.github.io/dsh-yukimi-theme/)
+
+## npm distribution
+
+After the npm release is published, install the complete Windows x64 package with:
+
+```powershell
+dsh plugin --profile desktop add dsh-yukimi-theme@1.2.0
+```
+
+The npm package includes the Electron companion runtime; a GitHub source checkout requires the build steps above. Web users can select `--profile web`. Restart Desktop after installation and check both the bundle and internal plugin switches. The public repository uses the `dsh-plugin` topic for dshfind discovery; indexing follows the directory refresh schedule.
 
 ## Features
 

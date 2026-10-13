@@ -19,7 +19,17 @@
 
 ## 安装
 
-### Windows 桌宠（desktop 分支）
+### Windows 桌宠（1.2.0）
+
+1.2.0 整合桌宠启动、提醒置顶、多显示器拖动、服装预加载及输入区域样式修复。npm 完整包包含 Windows x64 Electron 辅助运行时，安装包较大；GitHub 源码不包含该运行时，需按后面的流程构建。
+
+```powershell
+# npm 发布完成后使用；由 DSH Desktop 自带的 dsh 命令安装
+dsh plugin --profile desktop add dsh-yukimi-theme@1.2.0
+```
+
+安装后启用主题，检查插件详情中的内部开关，再完全退出并重启 Desktop。其他系统可使用页面主题，独立桌宠目前仅支持 Windows x64。
+
 
 桌宠由桌面 profile 的插件自动启动，使用独立透明置顶窗口。主窗口最小化或隐藏后继续显示；停用插件或退出 DSH 时关闭。启动成功后隐藏窗口内的小人，保留背景、签名和 Mobamas；辅助程序启动失败时保留窗口内的小人。
 
@@ -93,3 +103,7 @@ Windows 桌宠更新需按上面的「Windows 桌宠」流程重新构建、打�
 
 - 角色与素材来源：[imascg wiki（萌娘百科镜像）](https://wiki.biligame.com/imascg/佐城雪美)
 - 主题配色参考原 wiki 页面中标注的佐城雪美印象色 `#171C8F`。
+
+## 分发与收录
+
+维护者须先运行 `npm run desktop:package`、`npm run check`、`npm test`，再打包发布。npm 包必须包含完整的 `desktop/runtime/win32-x64/`，不能把只有 GitHub 源码的包当成完整桌宠版发布。`dsh-plugin` topic 用于 dshfind 自动收录，目录刷新前搜索结果可能尚未更新。
